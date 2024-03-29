@@ -16,7 +16,7 @@ After both are installed, using the command prompt, install React globally using
 
 then, inside the project folder run the following:
 
-        cd client && npm install
+        npm install
 
 In order to run the client:
 
