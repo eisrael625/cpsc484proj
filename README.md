@@ -1,5 +1,24 @@
 # Getting Started with Create React App
+Project setup
+Client-side
+the client side for the arrows app is written in ReactJS.
 
+ReactJS requires the following dependencies:
+
+NodeJs: NodeJS install
+
+npm (node package manager): npm install
+
+After both are installed, using the command prompt, install React globally using the following syntax:
+
+    npm install -g react
+then, inside the project folder run the following:
+
+    cd client && npm install
+In order to run the client:
+
+    npm start
+    
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
