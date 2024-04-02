@@ -1,38 +1,96 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100%;
+}
+
+.page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.page.home {
+  background-color: #007bff; /* Blue */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page.event-category {
+  background-color: #28a745; /* Green */
+}
+
+.page.events {
+  background-color: #ffc107; /* Yellow */
+}
+
+.page.event-details {
+  background-color: #dc3545; /* Red */
+}
+
+.container {
+  font-size: 24px;
+  text-align: center;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.category {
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.event {
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.event h2 {
+  font-size: 28px;
+}
+
+.event p {
+  font-size: 20px;
+}
+
+.header, .footer {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #333;
+  text-align: center;
+}
+
+.footer button {
+  background-color: #333;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.footer button:hover {
+  background-color: #555;
 }

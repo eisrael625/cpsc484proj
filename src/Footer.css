@@ -1,0 +1,30 @@
+.Footer {
+    height: 5vh;
+    font-size: 3vh;
+    text-align: center;
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-evenly; /* Distribute space between items */
+    background-color: blue;
+    color: #ffffff;
+}
+
+.button {
+    height: 4vh;
+    background-color: #ffffff; /* Button background color */
+    color: blue; /* Button text color */
+    border: 2px solid blue; /* Button border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Add pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+.button p {
+    margin-top: 0;
+}
+
+.button:hover {
+    background-color: red; /* Change background color on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+
+

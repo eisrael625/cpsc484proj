@@ -1,0 +1,48 @@
+.page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.EventCat {
+    background-color: #a52c2c; /* Set background color */
+}
+
+.topics {
+    height: 90vh; /* Set container height to 90vh */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    width: 100vw; /* Set row width to 100vw */
+    justify-content: space-around;
+}
+
+.column {
+    width: 45vw; /* Set column width to 50vw */
+    margin: 2vh;
+    height: 40vh; /* Set column height to 45vh */
+    background-color: #ffffff; /* Add background color */
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+.column:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    background-color: rgba(238, 170, 170, 0.8);
+}
+
+h1 {
+    font-size: 1.5em; /* Set font size */
+    color: #333333; /* Set text color */
+    text-align: center;
+    margin: 0;
+}
