@@ -13,20 +13,20 @@ export default function EventCat() {
         <>
 <Header instructions="Select A Category to see more events"/>
        <div className="EventCat">
-        <div className="topics" onClick={handleClick}>
+        <div className="topics">
                 <div className='row'>
-                    <div className='column'>
+                        <div className='column' onClick={() => handleClick('events')}>
                         <h1>Philosophy</h1>
                     </div>
-                    <div className='column'>
+                    <div className='column' onClick={() => handleClick('events')}>
                     <h1>Art</h1>
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='column'>
+                    <div className='column' onClick={() => handleClick('events')}>
                     <h1>Music</h1>
                     </div>
-                    <div className='column'>
+                    <div className='column' onClick={() => handleClick('events')}>
                         <h1>Math</h1>
                     </div>
                </div>
