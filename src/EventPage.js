@@ -3,8 +3,9 @@ import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./EventCat.css";
+import data from "./data.store"
 
-export default function EventCat() {
+export default function EventCat({currentCategory, setCurrentCategory}) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function EventCat() {
 
   return (
     <>
-      <Header instructions="Select A Category to see more events" />
+      <Header instructions={`Current Category is ${data.currentData.category}. Select A Event to see the events`} />
       <div className="scrollable">
         <div className="EventCat">
           <div className="topics">
@@ -53,7 +54,7 @@ export default function EventCat() {
           </div>
         </div>
       </div>
-      <Footer pageNumber={1} />
+      <Footer pageNumber={2} />
     </>
   );
 }

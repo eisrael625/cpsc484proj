@@ -3,8 +3,9 @@ import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./EventCat.css";
+import data from "./data.store"
 
-export default function EventCat() {
+export default function EventCat({currentCategory, setCurrentCategory}) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -18,7 +19,8 @@ export default function EventCat() {
   };
 
   const handleClick = (category) => {
-    window.location.href = "events";
+      window.location.href = "events";
+      data.setCategory(category);
     console.log("Clicked category:", category);
   };
 
@@ -40,8 +42,8 @@ export default function EventCat() {
                     </div>
                     {categories[index + 1] && (
                       <div
-                        className="column"
-                        onClick={() => handleClick(categories[index + 1])}
+                                    className="column"
+                                    onClick={() => { setCurrentCategory("bye"); handleClick(categories[index + 1]) }}
                       >
                         <h1>{categories[index + 1]}</h1>
                       </div>
