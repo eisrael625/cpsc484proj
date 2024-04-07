@@ -3,9 +3,9 @@ import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./EventCat.css";
-import data from "./data.store"
+import data from "./data.store";
 
-export default function EventCat({currentCategory, setCurrentCategory}) {
+export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [categories, setCategories] = useState([]);
   const [filteredEventData, setFilteredEventData] = useState([]);
   const currentCategory = "Math";
@@ -37,7 +37,9 @@ export default function EventCat({currentCategory, setCurrentCategory}) {
 
   return (
     <>
-      <Header instructions={`Current Category is ${data.currentData.category}. Select A Event to see the events`} />
+      <Header
+        instructions={`Current Category is ${data.currentData.category}. Select A Event to see the events`}
+      />
       <div className="scrollable">
         <div className="EventCat">
           {filteredEventData.map((event, index) => (
