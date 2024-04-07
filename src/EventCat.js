@@ -1,39 +1,49 @@
+import { useEffect, useState } from 'react';
+import { fetchEventData } from './GoogleSheets';
+import Header from './Header';
+import Footer from './Footer';
+import './EventCat.css';
 
-import './EventCat.css'
-import Header from './Header.js'
-import Footer from './Footer.js'
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-const handleClick = (href) => {
-    // You can perform any actions here before navigating to the new page
-    window.location.href = href;
-};
 export default function EventCat() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    const fetchCategories = async () => {
+        const eventData = await fetchEventData();
+        const uniqueCategories = [...new Set(eventData.map(row => row.Category))];
+        setCategories(uniqueCategories);
+    }
+
+    const handleClick = (category) => {
+        console.log('Clicked category:', category);
+    }
+
     return (
         <>
-<Header instructions="Select A Category to see more events"/>
-       <div className="EventCat">
-        <div className="topics">
-                <div className='row'>
-                        <div className='column' onClick={() => handleClick('events')}>
-                        <h1>Philosophy</h1>
-                    </div>
-                    <div className='column' onClick={() => handleClick('events')}>
-                    <h1>Art</h1>
+            <Header instructions="Select A Category to see more events"/>
+            <div className="scrollable">
+                <div className="EventCat">
+                    <div className="topics">
+                        {categories.map((category, index) => (
+                            index % 2 === 0 &&
+                            <div className='row' key={index}>
+                                <div className='column' onClick={() => handleClick(category)}>
+                                    <h1>{category}</h1>
+                                </div>
+                                {categories[index + 1] &&
+                                    <div className='column' onClick={() => handleClick(categories[index + 1])}>
+                                        <h1>{categories[index + 1]}</h1>
+                                    </div>
+                                }
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='column' onClick={() => handleClick('events')}>
-                    <h1>Music</h1>
-                    </div>
-                    <div className='column' onClick={() => handleClick('events')}>
-                        <h1>Math</h1>
-                    </div>
-               </div>
-            </div>
-            
             </div>
             <Footer pageNumber={1}/>
         </>
     );
-  }
+}

@@ -1,15 +1,19 @@
 .page {
-    height: 100vh;
+
     display: flex;
     flex-direction: column;
+    background-color: #a52c2c; /* Set background color */
+
 }
 
 .EventCat {
     background-color: #a52c2c; /* Set background color */
+    height: 90vh; 
+    overflow: scroll;
 }
 
 .topics {
-    height: 90vh; /* Set container height to 90vh */
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,4 +50,8 @@ h1 {
     color: #333333; /* Set text color */
     text-align: center;
     margin: 0;
+}
+
+.scrollable {
+    overflow: scroll; /* Enable vertical scrolling */
 }
