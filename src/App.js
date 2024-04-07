@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Home from './HomePage.js'
 import EventCategoryPage from './EventCat.js'
+import EventsPage from './EventPage.js'
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/eventCat" element={<EventCategoryPage />} />
-          {/* <Route path="/events" element={<EventsPage />} /> */}
+          <Route path="/events" element={<EventsPage />} />
           {/* <Route path="/eventDetails" element={<EventDetailsPage />} /> */}
         </Routes>
       </div>
