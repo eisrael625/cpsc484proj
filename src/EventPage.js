@@ -6,33 +6,40 @@ import "./EventCat.css";
 import data from "./data.store"
 
 export default function EventCat({currentCategory, setCurrentCategory}) {
-  const [categories, setCategories] = useState([]);
+  let categories = [];
   const [filteredEventData, setFilteredEventData] = useState([]);
-  const currentCategory = "Math";
+
 
   useEffect(() => {
     fetchCategories();
+    console.log("Event Data:", eventData);
   }, []);
 
   useEffect(() => {
-    if (currentCategory) {
-      filterEventData(currentCategory);
+    if (data.currentData.category) {
+      filterEventData(data.currentData.category);
     }
-  }, [currentCategory]);
+  }, [data]);
 
   const fetchCategories = async () => {
     const eventData = await fetchEventData();
-    const uniqueCategories = [
-      ...new Set(eventData.map((row) => row.EventName)),
-    ];
-    setCategories(uniqueCategories);
+    categories = eventData;
+    console.log("Event Data:", eventData);
   };
 
   const filterEventData = (category) => {
-    const eventData = categories.filter((row) => row.Category === category);
-    setFilteredEventData(eventData.slice(0, 4));
+    // Filter eventData based on the specified category
+    console.log("Categories:", categories);
+    const filteredEvents = categories.filter(row => row.Category === category);
 
-    console.log("Filtered Event Data:", eventData.slice(0, 4));
+    console.log("Filtered Categories:", filteredEvents);
+    // Extract EventName objects from filtered events
+    const eventNames = filteredEvents.map((event) => event.EventName);
+
+    // Set the filtered event names in state
+    categories = eventNames.slice(0, 4);
+
+    console.log("Filtered Event Names:", eventNames.slice(0, 4));
   };
 
   return (
