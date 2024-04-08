@@ -5,15 +5,41 @@ class Data {
   constructor() {
     makeObservable(this, {
       currentData: observable,
-      setCategory: action,
+        setCategory: action,
+        setEventName: action,
+        setEventDescription: action,
+        setEventTime: action,
+        setEventLocation: action,
+        setEventDate: action,
     });
     this.loadFromLocalStorage();
   }
 
-  currentData = { category: '', eventName: '', eventTime: '', eventLocation: '', eventDate: ''};
+  currentData = { category: '', eventName: '', eventDescription : '', eventTime: '', eventLocation: '', eventDate: ''};
 
   setCategory = (category) => {
     this.currentData.category = category;
+    this.saveToLocalStorage();
+  };
+    
+  setEventName = (event) => {
+    this.currentData.eventName = event;
+    this.saveToLocalStorage();
+  };
+  setEventDescription = (description) => {
+    this.currentData.eventDescription = description;
+    this.saveToLocalStorage();
+  };
+  setEventTime = (time) => {
+    this.currentData.eventTime = time;
+    this.saveToLocalStorage();
+  };
+  setEventLocation = (location) => {
+    this.currentData.eventLocation = location;
+    this.saveToLocalStorage();
+  };
+  setEventDate = (date) => {
+    this.currentData.eventDate = date;
     this.saveToLocalStorage();
   };
     

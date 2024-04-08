@@ -26,9 +26,15 @@ export default function Footer({ pageNumber }) {
             )}
             {pageNumber === 3 && (
                 <>
-                    <button><Link to="/" className="link">Back to Home</Link></button>
-                    <button><Link to="/eventCat" className="link">Pick New Category</Link></button>
-                    <button><Link to="/pickEvent" className="link">Pick New Event</Link></button>
+                <div className="button" onClick={() => handleClick('/')}>
+                    <p> Back to Home</p>
+                    </div>
+                    <div className="button" onClick={() => handleClick('eventCat')}>
+                    <p> Pick New Category</p>
+                    </div>
+                    <div className="button" onClick={() => handleClick('events')}>
+                    <p> Pick New Event</p>
+                    </div>
                 </>
             )}
       </div>
