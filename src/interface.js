@@ -1,111 +1,123 @@
-// Import dependencies and set up state variables
+import React, { Component } from "react";
 
-var host = "cpsc484-03.stdusr.yale.internal:8888";
-
-$(document).ready(function () {
-  frames.start();
-});
-
-var frames = {
-  socket: null,
-
-  start: function () {
-    var url = "ws://" + host + "/frames";
-    frames.socket = new WebSocket(url);
-    frames.socket.onmessage = function (event) {
-      var command = frames.get_left_wrist_command(JSON.parse(event.data));
-      if (command !== null) {
-        sendWristCommand(command);
-      }
+class HandPositionTracker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: null,
     };
-  },
-
-  get_left_wrist_command: function (frame) {
-    var command = null;
-    if (frame.people.length < 1) {
-      return command;
-    }
-
-    // Normalize by subtracting the root (pelvis) joint coordinates
-    var pelvis_x = frame.people[0].joints[0].position.x;
-    var pelvis_y = frame.people[0].joints[0].position.y;
-    var pelvis_z = frame.people[0].joints[0].position.z;
-    var left_wrist_x = (frame.people[0].joints[7].position.x - pelvis_x) * -1;
-    var left_wrist_y = (frame.people[0].joints[7].position.y - pelvis_y) * -1;
-    var left_wrist_z = (frame.people[0].joints[7].position.z - pelvis_z) * -1;
-
-    if (left_wrist_x < 200 && left_wrist_x > -200) {
-      if (left_wrist_y > 500) {
-        command = 73; // UP !!update to match our interface!!
-      } else if (left_wrist_y < 100) {
-        command = 75; // DOWN !!Update to match our interface!!
-      }
-    } else if (left_wrist_y < 500 && left_wrist_y > 100) {
-      if (left_wrist_x > 200) {
-        command = 76; // RIGHT !!Update to match our interface!!
-      } else if (left_wrist_x < -200) {
-        command = 74; // LEFT !!Update to match our interface!!
-      }
-    }
-    return command;
-  },
-};
-
-var twod = {
-  socket: null,
-
-  start: function () {
-    var url = "ws://" + host + "/twod";
-    twod.socket = new WebSocket(url);
-    twod.socket.onmessage = function (event) {
-      twod.show(JSON.parse(event.data));
-    };
-  },
-
-  show: function (twod) {
-    $(".twod").attr("src", "data:image/pnjpegg;base64," + twod.src);
-  },
-};
-
-// Establish WebSocket connections for motion capture frames
-
-// Modify or create a function to extract left wrist position from motion capture frames
-function getLeftWristPosition(frame) {
-  // Extract left wrist position from the frame data
-  // Return the position (e.g., an object with x and y coordinates)
-}
-
-// Inside the WebSocket onmessage event handler for motion capture frames
-frames.socket.onmessage = function (event) {
-  // Extract left wrist position from the received frame data
-  const wristPosition = getLeftWristPosition(JSON.parse(event.data));
-
-  // Map wrist position to button selection
-  const selectedButton = mapWristToButton(wristPosition);
-
-  // Trigger button selection action
-  if (selectedButton) {
-    handleButtonSelection(selectedButton);
   }
-};
 
-// Define a function to map wrist position to button selection
-function mapWristToButton(wristPosition) {
-  // Determine which button the wrist is positioned over
-  // Return the corresponding button (e.g., category name)
+  componentDidMount() {
+    this.startWebSocket();
+  }
+
+  startWebSocket() {
+    var host = "cpsc484-02.stdusr.yale.internal:8888";
+    var url = "ws://" + host + "/frames";
+    this.socket = new WebSocket(url);
+    this.socket.onmessage = this.processFrame;
+  }
+
+  processFrame = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.people) {
+      for (const person of data.people) {
+        this.processPerson(person);
+      }
+    }
+  };
+
+  processPerson = (person) => {
+    // Extract joint data
+    const { joints } = person;
+    const {
+      neck,
+      spine_chest,
+      spine_navel,
+      shoulderRight,
+      shoulderLeft,
+      handRight,
+    } = joints;
+
+    // Update selected option based on hand position
+    const selectedOption = this.checkPosition(
+      neck,
+      spine_chest,
+      spine_navel,
+      shoulderRight,
+      shoulderLeft,
+      handRight,
+    );
+    this.setState({ selectedOption });
+  };
+
+  checkPosition = (
+    neck,
+    spine_chest,
+    spine_navel,
+    shoulderRight,
+    shoulderLeft,
+    handRight,
+  ) => {
+    const threshold = 50; // The minimum distance the hand needs to be above the shoulder
+
+    if (
+      handRight.position.y >= neck.position.y + threshold &&
+      handRight.position.x >= shoulderRight.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 1;
+    } else if (
+      handRight.position.y >= neck.position.y + threshold &&
+      handRight.position.x < shoulderRight.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 2;
+    } else if (
+      handRight.position.y <= neck.position.y - threshold &&
+      handRight.position.y >= spine_chest.position.y + threshold &&
+      handRight.position.x >= shoulderRight.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 3;
+    } else if (
+      handRight.position.y <= neck.position.y - threshold &&
+      handRight.position.y >= spine_chest.position.y + threshold &&
+      handRight.position.x <= shoulderRight.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 4;
+    } else if (
+      handRight.position.y <= spine_chest.position.y - threshold &&
+      handRight.position.y >= spine_navel.position.y + threshold &&
+      handRight.position.x >= shoulderRight.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 5;
+    } else if (
+      handRight.position.y <= spine_chest.position.y - threshold &&
+      handRight.position.y >= spine_navel.position.y + threshold &&
+      handRight.position.x <= shoulderRight.position.x - threshold &&
+      handRight.position.x >= shoulderLeft.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 6;
+    } else if (
+      handRight.position.y <= spine_chest.position.y - threshold &&
+      handRight.position.y >= spine_navel.position.y + threshold &&
+      handRight.position.x <= shoulderLeft.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      return 7;
+    }
+    return null; // Return null if no option is selected
+  };
+
+  render() {
+    // Render UI based on the selected option if needed
+    return <div>Selected Option: {this.state.selectedOption}</div>;
+  }
 }
 
-// Define a function to handle button selection
-function handleButtonSelection(selectedButton) {
-  // Perform actions based on the selected button (e.g., update current category state)
-  setCurrentCategory(selectedButton);
-}
-
-// Update handleClick function to avoid click events and use WebSocket data instead
-const handleClick = (category) => {
-  window.location.href = "events";
-  data.setCategory(category);
-  console.log("Clicked category:", category);
-};
-
-// Modify the interface rendering logic if needed to reflect the new selection method
+export default HandPositionTracker;
