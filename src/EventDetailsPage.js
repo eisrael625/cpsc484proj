@@ -30,14 +30,7 @@ export default function EventDetailsPage() {
     setFilteredEventData(filteredEvents.slice(0, 4));
   };
 
-  const handleClick = (name, date, location, time) => {
-    window.location.href = "eventDetails";
-    data.setEventName(name);
-    data.setEventDate(date);
-    data.setEventLocation(location);
-    data.setEventTime(time);
-    console.log("Clicked category:", name);
-  };
+
 
   return (
     <>
@@ -64,7 +57,7 @@ export default function EventDetailsPage() {
                    className="qr"
                     style={{ height: "200"}}
                     value={data.currentData.eventCalURL}
-                    // viewBox={`0 0 500 500`}
+                    
                   />
                               
                               </div>
@@ -76,7 +69,7 @@ export default function EventDetailsPage() {
                       className="qr"
                       style={{ height: "200" }}
                       value={data.currentData.listServeURL}
-                      // viewBox={`0 0 500 500`}
+                     
                     />
                  
                 </div>

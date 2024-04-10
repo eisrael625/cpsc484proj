@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
-import HandPositionTracker from "./interface"; // Import HandPositionTracker component
+import HandPositionTracker from "./interface"; 
 import "./EventCat.css";
 import data from "./data.store";
 
 export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [eventData, setEventData] = useState([]);
   const [filteredEventData, setFilteredEventData] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
+  const [selectedOption, setSelectedOption] = useState(null); 
 
   useEffect(() => {
     fetchEventDataAndUpdateState();
@@ -59,7 +59,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <Header
         instructions={`Current category is ${data.currentData.category}. Pick an event to learn more about it!`}
       />
-      <HandPositionTracker setSelectedOption={setSelectedOption} /> {/* Pass setSelectedOption as props */}
+      <HandPositionTracker setSelectedOption={setSelectedOption} /> 
       <div className="scrollable">
         <div className="EventCat">
           <div className="topics">

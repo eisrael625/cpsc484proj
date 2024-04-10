@@ -31,9 +31,6 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   // Handle function to simulate button clicks based on selectedOption
   useEffect(() => {
     if (selectedOption !== null) {
-      // Logic to determine which buttons to click based on selectedOption
-      // Example: if selectedOption is 1, click the first button, if 2, click the second button, etc.
-      // You can adjust this logic based on your specific requirements
       const indexToClick = selectedOption - 1;
       if (categories[indexToClick]) {
         setCurrentCategory("bye");
@@ -45,7 +42,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   return (
     <>
       <Header instructions="Select A Category to see more events" />
-      <HandPositionTracker setSelectedOption={setSelectedOption} /> {/* Pass setSelectedOption as props */}
+      <HandPositionTracker setSelectedOption={setSelectedOption} />
       <div className="scrollable">
         <div className="EventCat">
           <div className="topics">
@@ -63,7 +60,6 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                       <div
                         className="column"
                         onClick={() => {
-                          setCurrentCategory("bye");
                           handleClick(categories[index + 1]);
                         }}
                       >
