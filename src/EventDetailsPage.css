@@ -1,0 +1,67 @@
+.eventPageDiv {
+    height: 90vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #a52c2c; /* Set background color */
+}
+.eventBodyDiv {
+    width: 80vw;
+    height: 70vh;
+    background-color: #ffffff; /* Add background color */
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    display: flex;
+    flex-direction: column;
+}
+
+.eventBody {
+    display: flex;
+    flex-direction: row;
+}
+
+.eventTitle {
+    margin-top:2vh;
+}
+
+.eventLeft {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    height: 64.2vh;
+text-align: center;
+justify-content: space-evenly;
+font-size: 4vh;
+/* background-color: red; */
+padding: 0 2vh;
+}
+
+.eventRight {
+    display: flex;
+    flex-direction: row;
+    width: 40vw;
+    height: 64.2vh;
+}
+.qrcodeDiv {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    height: 100%;
+    text-align: center;
+    height: 64.2vh;
+    /* background-color: blue; */
+    font-size: 3vh;
+  
+    align-items: center;
+    
+}
+
+.qrTitle {
+    margin-top: 10vh;
+    
+}
+
+.qr {
+    margin-top: auto;
+    margin-bottom: 15vh;}

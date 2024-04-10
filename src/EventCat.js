@@ -13,8 +13,10 @@ export default function EventCat({currentCategory, setCurrentCategory}) {
   }, []);
 
   const fetchCategories = async () => {
-    const eventData = await fetchEventData();
-    const uniqueCategories = [...new Set(eventData.map((row) => row.Category))];
+      const eventData = await fetchEventData();
+      console.log(eventData);
+      const uniqueCategories = [...new Set(eventData.map((row) => row.Category))];
+      console.log(uniqueCategories);
     setCategories(uniqueCategories);
   };
 

@@ -30,13 +30,15 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
     setFilteredEventData(filteredEvents.slice(0, 4));
   };
 
-  const handleClick = (name, date, location, time, description) => {
+  const handleClick = (name, date, location, time, description, url, url2) => {
     window.location.href = "eventDetails";
     data.setEventName(name);
     data.setEventDate(date);
     data.setEventLocation(location);
     data.setEventTime(time);
     data.setEventDescription(description);
+    data.setEventCalURL(url);
+    data.setListServeURL(url2);
   console.log("Clicked category:", name);
 };
 
@@ -51,13 +53,15 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
             {filteredEventData.map((event, index) => (
               index % 2 === 0 && ( // Render a new row for every two events
                 <div className="row" key={index}>
-                  <div className="column" onClick={() => handleClick(event.EventName, event.Date, event.Location, event.Time, event.Description)}>
+                  <div className="column" onClick={() => handleClick(event.EventName, event.Date, event.Location, event.Time, event.Description, event.CalLink, event.ListServeLink)}>
+                    <h1 className="catHeader">{event.Category}</h1>
                     <h1>{event.EventName}</h1>
                     <p>{event.Description}</p>
                     <p>{event.Date} at {event.Time} in {event.Location} </p>
                   </div>
                   {filteredEventData[index + 1] && (
-                    <div className="column" onClick={() => handleClick(filteredEventData[index + 1].EventName, filteredEventData[index + 1].Date, filteredEventData[index + 1].Location, filteredEventData[index + 1].Time, filteredEventData[index + 1].Description)}>
+                    <div className="column" onClick={() => handleClick(filteredEventData[index + 1].EventName, filteredEventData[index + 1].Date, filteredEventData[index + 1].Location, filteredEventData[index + 1].Time, filteredEventData[index + 1].Description, filteredEventData[index + 1].CalLink, filteredEventData[index + 1].ListServeLink)}>
+                    <h1>{filteredEventData[index + 1].Category}</h1>
                       <h1>{filteredEventData[index + 1].EventName}</h1>
                       <p>{filteredEventData[index + 1].Description}</p>
                       <p>{filteredEventData[index + 1].Date} at {filteredEventData[index + 1].Time} in {filteredEventData[index + 1].Location} </p>

@@ -23,7 +23,7 @@
 }
 
 .button:hover {
-    background-color: red; /* Change background color on hover */
+    background-color: #a52c2c; /* Change background color on hover */
     color: #ffffff; /* Change text color on hover */
 }
 

@@ -15,8 +15,8 @@ export default function HomePage() {
        <div className="home">
        
        <div className="container" onClick={() => handleClick('/eventCat')}>
-                <h1>Welcome to Event Finder</h1>
-                <h2>Click anywhere to start</h2>
+                <h1 className='text'>Welcome to Event Finder</h1>
+                <h2 className='text'>Click anywhere to start</h2>
         </div>
       </div>
         </>
