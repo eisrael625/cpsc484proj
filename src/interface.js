@@ -50,6 +50,7 @@ class HandPositionTracker extends Component {
       handRight,
     );
     this.setState({ selectedOption });
+    this.props.setSelectedOption(selectedOption); // Call the function passed from parent component
   };
 
   checkPosition = (
@@ -116,7 +117,7 @@ class HandPositionTracker extends Component {
 
   render() {
     // Render UI based on the selected option if needed
-    return <div>Selected Option: {this.state.selectedOption}</div>;
+    return <div></div>;
   }
 }
 
