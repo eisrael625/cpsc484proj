@@ -13,7 +13,7 @@ class HandPositionTracker extends Component {
   }
 
   startWebSocket() {
-    var host = "cpsc484-02.stdusr.yale.internal:8888";
+    var host = "cpsc484-03.stdusr.yale.internal:8888";
     var url = "ws://" + host + "/frames";
     this.socket = new WebSocket(url);
     this.socket.onmessage = this.processFrame;
