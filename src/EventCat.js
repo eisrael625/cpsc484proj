@@ -35,6 +35,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       if (categories[indexToClick]) {
         setCurrentCategory("bye");
         handleClick(categories[indexToClick]);
+      } else if (selectedOption == 6) {
+        window.location.href = "homePage";
       }
     }
   }, [selectedOption, categories, setCurrentCategory]);
@@ -67,7 +69,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                       </div>
                     )}
                   </div>
-                )
+                ),
             )}
           </div>
         </div>

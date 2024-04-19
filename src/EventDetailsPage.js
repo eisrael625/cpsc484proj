@@ -3,11 +3,17 @@ import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./EventDetailsPage.css";
+import HandPositionTracker from "./interface"; // Import HandPositionTracker component
 import data from "./data.store";
 import QRCode from "react-qr-code";
-export default function EventDetailsPage() {
+export default function EventDetailsPage({
+  currentCategory,
+  setCurrentCategory,
+}) {
   const [eventData, setEventData] = useState([]);
   const [filteredEventData, setFilteredEventData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
 
   useEffect(() => {
     fetchEventDataAndUpdateState();
@@ -25,12 +31,10 @@ export default function EventDetailsPage() {
 
   const filterEventData = (category) => {
     const filteredEvents = eventData.filter(
-      (event) => event.Category === category
+      (event) => event.Category === category,
     );
     setFilteredEventData(filteredEvents.slice(0, 4));
   };
-
-
 
   return (
     <>
@@ -38,42 +42,40 @@ export default function EventDetailsPage() {
         instructions={`Current Event is ${data.currentData.eventName}. Feel free to browse other events by clicking back down below!`}
       />
       <div className="eventPageDiv">
-              <div className="eventBodyDiv">
-                    <h1 className="eventTitle"> {data.currentData.category} Event</h1>
-                  <h1 className="eventTitle"> {data.currentData.eventName}</h1>
+        <div className="eventBodyDiv">
+          <h1 className="eventTitle"> {data.currentData.category} Event</h1>
+          <h1 className="eventTitle"> {data.currentData.eventName}</h1>
 
           <div className="eventBody">
-                      <div className="eventLeft">
+            <div className="eventLeft">
               <p>Event Description: {data.currentData.eventDescription}</p>
-              <p>Event Details: {data.currentData.eventDate} at{" "}
+              <p>
+                Event Details: {data.currentData.eventDate} at{" "}
                 {data.currentData.eventTime} in {data.currentData.eventLocation}{" "}
               </p>
             </div>
             <div className="eventRight">
               <div className="qrcodeDiv">
                 <p className="qrTitle">Add Event to Google Calender</p>
-                
-                  <QRCode
-                   className="qr"
-                    style={{ height: "200"}}
-                    value={data.currentData.eventCalURL}
-                    
-                  />
-                              
-                              </div>
 
-                <div className="qrcodeDiv">
-                              <p className="qrTitle">Join {data.currentData.category} List Serve</p>
-                  
-                    <QRCode
-                      className="qr"
-                      style={{ height: "200" }}
-                      value={data.currentData.listServeURL}
-                     
-                    />
-                 
-                </div>
-              
+                <QRCode
+                  className="qr"
+                  style={{ height: "200" }}
+                  value={data.currentData.eventCalURL}
+                />
+              </div>
+
+              <div className="qrcodeDiv">
+                <p className="qrTitle">
+                  Join {data.currentData.category} List Serve
+                </p>
+
+                <QRCode
+                  className="qr"
+                  style={{ height: "200" }}
+                  value={data.currentData.listServeURL}
+                />
+              </div>
             </div>
           </div>
         </div>
