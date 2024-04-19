@@ -42,7 +42,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   return (
     <>
       <Header instructions="Select A Category to see more events" />
-      //<HandPositionTracker setSelectedOption={setSelectedOption} />
+      <HandPositionTracker setSelectedOption={setSelectedOption} />
       <div className="scrollable">
         <div className="EventCat">
           <div className="topics">
