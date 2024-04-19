@@ -12,7 +12,6 @@ export default function EventDetailsPage({
 }) {
   const [eventData, setEventData] = useState([]);
   const [filteredEventData, setFilteredEventData] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
 
   useEffect(() => {
@@ -22,6 +21,19 @@ export default function EventDetailsPage({
   useEffect(() => {
     filterEventData(data.currentData.category);
   }, [eventData]);
+
+  useEffect(() => {
+    if (selectedOption !== null) {
+      // Logic to determine which buttons to click based on selectedOption
+      if (selectedOption == 5) {
+        window.location.href = "homePage";
+      } else if (selectedOption == 6) {
+        window.location.href = "eventCat";
+      } else if (selectedOption == 7) {
+        window.location.href = "eventPage";
+      }
+    }
+  }, [selectedOption]);
 
   const fetchEventDataAndUpdateState = async () => {
     const eventData = await fetchEventData();
@@ -41,6 +53,7 @@ export default function EventDetailsPage({
       <Header
         instructions={`Current Event is ${data.currentData.eventName}. Feel free to browse other events by clicking back down below!`}
       />
+      <HandPositionTracker setSelectedOption={setSelectedOption} />
       <div className="eventPageDiv">
         <div className="eventBodyDiv">
           <h1 className="eventTitle"> {data.currentData.category} Event</h1>
