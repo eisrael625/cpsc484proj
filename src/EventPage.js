@@ -25,7 +25,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       const indexToClick = selectedOption - 1;
       if (filteredEventData[indexToClick]) {
         handleClick(filteredEventData[indexToClick]);
-      } else if (selectedOption == 4) {
+      } else if (selectedOption == 5) {
         window.location.href = "homePage";
       } else if (selectedOption == 7) {
         window.location.href = "eventCat";
