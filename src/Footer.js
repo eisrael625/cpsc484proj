@@ -63,7 +63,7 @@ export default function Footer({ pageNumber, cal }) {
                   )}
               </>
             )}
-            <HandPositionTracker setSelectedOption={setSelectedOption} className="dissapear" />
+            <HandPositionTracker setSelectedOption={setSelectedOption} />
         </div>
       );
   }

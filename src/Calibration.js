@@ -7,7 +7,7 @@ import data from "./data.store";
 
 export default function Calibration() {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [countdown, setCountdown] = useState(0);
+  const [countdown, setCountdown] = useState(3);
   const calibrationOptions = [
     { EventName: "TOP RIGHT" },
     { EventName: "TOP LEFT" },
@@ -15,14 +15,18 @@ export default function Calibration() {
     { EventName: "MIDLEFT" },
   ];
 
+  // Reset countdown whenever selectedOption changes
   useEffect(() => {
-    // Start the countdown when selectedOption changes
+    setCountdown(3); // Reset countdown to 3
+  }, [selectedOption]);
+
+  // Start the countdown when selectedOption changes
+  useEffect(() => {
     if (selectedOption !== null) {
-      // Clear the previous interval if it exists
       const intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
-            clearInterval(intervalId); // Stop the countdown when it reaches 0
+            clearInterval(intervalId);
             return 0;
           }
           return prevCountdown - 1;
@@ -42,20 +46,31 @@ export default function Calibration() {
         <div className="EventCat">
           <div className="topics">
             <div className="row">
-              {calibrationOptions.map((option, index) => (
-                <div
-                  key={index}
-                  className="column"
-                  data-hover={selectedOption === index + 1}
-                >
-                  <h1>{option.EventName}</h1>
-                </div>
-              ))}
+              <div className="column" data-hover={selectedOption === 2}>
+                <h1>{calibrationOptions[0].EventName}</h1>
+              </div>
+              <div className="column" data-hover={selectedOption === 1}>
+                <h1>{calibrationOptions[1].EventName}</h1>
+              </div>
+            </div>
+            <div className="row">
+              <div className="column" data-hover={selectedOption === 4}>
+                <h1>{calibrationOptions[2].EventName}</h1>
+              </div>
+              <div className="column" data-hover={selectedOption === 3}>
+                <h1>{calibrationOptions[3].EventName}</h1>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="countdown">Countdown: {countdown}</div>
+      {/* Circle with timer */}
+      <div className="circle-container">
+              <div className="circle">
+              <p className="timer">{countdown}</p>
+        </div>
+       
+      </div>
       <Footer pageNumber={2} cal={1} />
     </>
   );
