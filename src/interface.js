@@ -35,6 +35,10 @@ class HandPositionTracker extends Component {
     // Extract joint data
     const { joints } = person;
     const neck = joints[3];
+    const spine_chest = joints[2];
+    const spine_navel = joints[1];
+    const shoulderRight = joints[12];
+    const shoulderLeft = joints[5];
     const handRight = joints[15];
 
     // Calculate cursor position based on hand position and screen dimensions
@@ -42,30 +46,110 @@ class HandPositionTracker extends Component {
     const cursorY = ((handRight.position.y + 1) * window.innerHeight) / 2;
 
     // Update selected option based on hand position
-    const selectedOption = this.checkPosition(neck, handRight);
+    const selectedOption = this.checkPosition(
+      neck,
+      spine_chest,
+      spine_navel,
+      shoulderRight,
+      shoulderLeft,
+      handRight,
+    );
     this.setState({ selectedOption, cursorX, cursorY });
 
     // Call the function passed from parent component
     this.props.setSelectedOption(selectedOption);
+
+    // Start the countdown when a valid option is selected
+    if (selectedOption !== null) {
+      this.startCountdown();
+    }
   };
 
-  checkPosition = (neck, handRight) => {
-    const threshold = 0; // The minimum distance the hand needs to be above the neck
+  checkPosition = (
+    neck,
+    spine_chest,
+    spine_navel,
+    shoulderRight,
+    shoulderLeft,
+    handRight,
+  ) => {
+    const threshold = 0; // The minimum distance the hand needs to be above the shoulder
     if (
       handRight.position.y <= neck.position.y - threshold &&
+      handRight.position.x <= shoulderRight.position.x - threshold &&
       handRight.confidence >= 2
     ) {
       data.setHandLocation(1);
       return 1;
     } else if (
-      handRight.position.y >= neck.position.y + threshold &&
+      handRight.position.y <= neck.position.y - threshold &&
+      handRight.position.x > shoulderRight.position.x + threshold &&
       handRight.confidence >= 2
     ) {
       data.setHandLocation(2);
       return 2;
+    } else if (
+      handRight.position.y >= neck.position.y + threshold &&
+      handRight.position.y <= spine_chest.position.y - threshold &&
+      handRight.position.x <= shoulderRight.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      data.setHandLocation(3);
+      return 3;
+    } else if (
+      handRight.position.y >= neck.position.y + threshold &&
+      handRight.position.y <= spine_chest.position.y - threshold &&
+      handRight.position.x >= shoulderRight.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      data.setHandLocation(4);
+      return 4;
+    } else if (
+      handRight.position.y >= spine_chest.position.y + threshold &&
+      handRight.position.x <= shoulderRight.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      data.setHandLocation(7);
+      return 7;
+    } else if (
+      handRight.position.y >= spine_chest.position.y + threshold &&
+      handRight.position.x >= shoulderRight.position.x + threshold &&
+      handRight.position.x <= shoulderLeft.position.x - threshold &&
+      handRight.confidence >= 2
+    ) {
+      data.setHandLocation(6);
+      return 6;
+    } else if (
+      handRight.position.y >= spine_chest.position.y + threshold &&
+      handRight.position.x >= shoulderLeft.position.x + threshold &&
+      handRight.confidence >= 2
+    ) {
+      data.setHandLocation(5);
+      return 5;
     }
     return null; // Return null if no option is selected
   };
+
+  startCountdown() {
+    this.setState({ countdown: 3 }); // Reset the countdown to 3
+    this.countdownInterval = setInterval(() => {
+      this.setState(
+        (prevState) => ({
+          countdown: prevState.countdown - 1, // Decrement countdown every second
+        }),
+        () => {
+          // Stop the countdown when it reaches 0
+          if (this.state.countdown === 0) {
+            clearInterval(this.countdownInterval);
+          }
+        },
+      );
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.countdownInterval); // Clear the interval when the component unmounts
+  }
 
   render() {
     const { cursorX, cursorY } = this.state; // Access cursorX and cursorY from state
