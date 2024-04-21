@@ -165,16 +165,7 @@ class HandPositionTracker extends Component {
 
     // Render UI based on the cursor position
     return (
-      <div
-        style={{
-          position: "absolute",
-          left: cursorX,
-          top: cursorY,
-          cursor: "pointer",
-        }}
-      >
-        <div className="cursor">•</div>
-      </div>
+      <></>
     );
   }
 }

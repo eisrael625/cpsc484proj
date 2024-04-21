@@ -13,7 +13,9 @@ const HomePage = () => {
   useEffect(() => {
     if (selectedOption !== null && countdown > 0) {
       const intervalId = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
+        if (selectedOption === 1 || selectedOption === 2) {
+          setCountdown((prevCountdown) => prevCountdown - 1);
+        }
       }, 1000);
 
       // Clear the interval when the component unmounts or when selectedOption changes
@@ -27,11 +29,12 @@ const HomePage = () => {
     window.location.href = href;
   };
 
-  // Check if the selectedOption is 1, 2, or 3 and simulate click accordingly
-  if (selectedOption === 1 || selectedOption === 2 || selectedOption === 3) {
-    //If hand is lifted
-    handleClick("/eventCat");
-  }
+  // Redirect to the new page if countdown reaches zero
+  useEffect(() => {
+    if (countdown === 0) {
+      handleClick("/calibration");
+    }
+  }, [countdown]);
 
   return (
     <>

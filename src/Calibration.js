@@ -20,9 +20,9 @@ export default function Calibration() {
     setCountdown(3); // Reset countdown to 3
   }, [selectedOption]);
 
-  // Start the countdown when selectedOption changes
+  // Start the countdown when selectedOption changes and it's 7
   useEffect(() => {
-    if (selectedOption !== null) {
+    if (selectedOption === 7) {
       const intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
@@ -66,10 +66,9 @@ export default function Calibration() {
       </div>
       {/* Circle with timer */}
       <div className="circle-container">
-              <div className="circle">
-              <p className="timer">{countdown}</p>
+        <div className="circle">
+          <p className="timer">{countdown}</p>
         </div>
-       
       </div>
       <Footer pageNumber={2} cal={1} />
     </>
