@@ -12,12 +12,13 @@ class Data {
         setEventLocation: action,
         setEventDate: action,
         setEventCalURL: action,
-        setListServeURL: action,
+      setListServeURL: action,
+        setHandLocation: action,
     });
     this.loadFromLocalStorage();
   }
 
-  currentData = { category: '', eventName: '', eventDescription : '', eventTime: '', eventLocation: '', eventDate: '', eventCalURL: '', listServeURL: ''};
+  currentData = { category: '', eventName: '', eventDescription : '', eventTime: '', eventLocation: '', eventDate: '', eventCalURL: '', listServeURL: '', handLocation: 0};
 
   setCategory = (category) => {
     this.currentData.category = category;
@@ -50,6 +51,10 @@ class Data {
   };
   setListServeURL = (url) => {
     this.currentData.listServeURL = url;
+    this.saveToLocalStorage();
+  };
+  setHandLocation = (loc) => {
+    this.currentData.handLocation = loc;
     this.saveToLocalStorage();
   };
     

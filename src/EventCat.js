@@ -36,7 +36,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         setCurrentCategory("bye");
         handleClick(categories[indexToClick]);
       } else if (selectedOption == 6) {
-        window.location.href = "homePage";
+        window.location.href = "/";
       }
     }
   }, [selectedOption, categories, setCurrentCategory]);

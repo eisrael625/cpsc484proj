@@ -26,11 +26,11 @@ export default function EventDetailsPage({
     if (selectedOption !== null) {
       // Logic to determine which buttons to click based on selectedOption
       if (selectedOption == 5) {
-        window.location.href = "homePage";
+        window.location.href = "/";
       } else if (selectedOption == 6) {
         window.location.href = "eventCat";
       } else if (selectedOption == 7) {
-        window.location.href = "eventPage";
+        window.location.href = "events";
       }
     }
   }, [selectedOption]);

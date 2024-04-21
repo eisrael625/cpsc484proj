@@ -5,6 +5,7 @@ import Home from './HomePage.js'
 import EventCategoryPage from './EventCat.js'
 import EventsPage from './EventPage.js'
 import EventDetailsPage from './EventDetailsPage';
+import Calibration from './Calibration.js'
 import { useEffect, useState } from "react";
 
 
@@ -14,7 +15,9 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          
           <Route path="/" element={<Home />} />
+          <Route path="/calibration" element={<Calibration />} />
           <Route path="/eventCat" element={<EventCategoryPage currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />} />
           <Route path="/events" element={<EventsPage currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />} />
           <Route path="/eventDetails" element={<EventDetailsPage />} />

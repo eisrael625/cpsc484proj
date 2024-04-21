@@ -40,7 +40,8 @@
     padding: 0 3vh;
 }
 
-.column:hover {
+.column:hover,
+.column[data-hover="true"] {
     transform: scale(1.05); /* Scale up on hover */
     background-color: rgba(238, 170, 170, 0.8);
 }

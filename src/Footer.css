@@ -17,14 +17,16 @@
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Add pointer cursor on hover */
     transition: all 0.3s ease; /* Smooth transition for hover effect */
+    min-width: 10vw;
 }
 .button p {
     margin-top: 0;
 }
 
-.button:hover {
-    background-color: #a52c2c; /* Change background color on hover */
-    color: #ffffff; /* Change text color on hover */
+.button:hover,
+.button[data-hover="true"] {
+    transform: scale(1.05); /* Scale up on hover */
+    background-color: rgba(238, 170, 170, 0.8);
 }
 
 
