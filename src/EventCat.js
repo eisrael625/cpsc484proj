@@ -9,6 +9,8 @@ import data from "./data.store";
 export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
+  const [delayedClick, setDelayedClick] = useState(null);
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     fetchCategories();
@@ -28,18 +30,39 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
     console.log("Clicked category:", category);
   };
 
-  // Handle function to simulate button clicks based on selectedOption
   useEffect(() => {
     if (selectedOption !== null) {
-      const indexToClick = selectedOption - 1;
-      if (categories[indexToClick]) {
-        setCurrentCategory("bye");
-        handleClick(categories[indexToClick]);
-      } else if (selectedOption == 6) {
-        window.location.href = "/";
+      // Clear the previous timeout if it exists
+      if (delayedClick) {
+        clearTimeout(delayedClick);
       }
+
+      // Set a new timeout to trigger handleClick after 3 seconds
+      const timeoutId = setTimeout(() => {
+        const indexToClick = selectedOption - 1;
+        if (categories[indexToClick]) {
+          setCurrentCategory("bye");
+          handleClick(categories[indexToClick]);
+        } else if (selectedOption === 6) {
+          window.location.href = "/";
+        }
+      }, 3000);
+
+      // Store the timeout ID
+      setDelayedClick(timeoutId);
+
+      // Start the countdown
+      setCountdown(3);
+
+      // Update the countdown every second
+      const intervalId = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      // Clear the interval when the component unmounts or when the selected option changes
+      return () => clearInterval(intervalId);
     }
-  }, [selectedOption, categories, setCurrentCategory]);
+  }, [selectedOption, categories, setCurrentCategory, delayedClick]);
 
   return (
     <>
