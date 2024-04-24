@@ -21,9 +21,11 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   }, [eventData]);
 
   useEffect(() => {
+    let intervalId;
     if (selectedOption !== null) {
+      setCountdown(3);
       // Clear previous intervals (if any)
-      const intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
@@ -76,7 +78,10 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
               (event, index) =>
                 index % 2 === 0 && ( // Render a new row for every two events
                   <div className="row" key={index}>
-                    <div className="column" onClick={() => handleClick(event)}>
+                    <div
+                      className={`column ${selectedOption === index ? "selected" : ""}`}
+                      data-hover={selectedOption === index}
+                    >
                       <h1 className="catHeader">{event.Category}</h1>
                       <h1>{event.EventName}</h1>
                       <p>{event.Description}</p>
@@ -86,10 +91,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                     </div>
                     {filteredEventData[index + 1] && (
                       <div
-                        className="column"
-                        onClick={() =>
-                          handleClick(filteredEventData[index + 1])
-                        }
+                        className={`column ${selectedOption === index + 1 ? "selected" : ""}`}
+                        data-hover={selectedOption === index + 1}
                       >
                         <h1>{filteredEventData[index + 1].Category}</h1>
                         <h1>{filteredEventData[index + 1].EventName}</h1>
@@ -102,13 +105,17 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                       </div>
                     )}
                   </div>
-                ),
+                )
             )}
           </div>
         </div>
       </div>
-      <Footer pageNumber={2} />
+      <div className="circle-container">
+        <div className="circle">
+          <p className="timer">{countdown}</p>
+        </div>
+      </div>
+      <Footer pageNumber={4} />
     </>
   );
 }
-ᐧ;
