@@ -28,7 +28,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   };
 
   useEffect(() => {
-    let intervalId; // Initialize intervalId
+    let intervalId;
+  
     if (selectedOption !== null) {
       setCountdown(3);
       intervalId = setInterval(() => {
@@ -42,8 +43,12 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         });
       }, 1000);
     }
-    return () => clearInterval(intervalId); // Clear interval in cleanup
+  
+    return () => {
+      clearInterval(intervalId); // Clear interval in cleanup
+    };
   }, [selectedOption]);
+  
 
   return (
     <>
