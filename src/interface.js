@@ -23,6 +23,7 @@ class HandPositionTracker extends Component {
   }
 
   processFrame = (event) => {
+    console.log("here");
     const data = JSON.parse(event.data);
     if (data.people) {
       for (const person of data.people) {
@@ -164,9 +165,7 @@ class HandPositionTracker extends Component {
     const { cursorX, cursorY } = this.state; // Access cursorX and cursorY from state
 
     // Render UI based on the cursor position
-    return (
-      <></>
-    );
+    return <></>;
   }
 }
 

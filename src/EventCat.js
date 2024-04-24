@@ -11,6 +11,14 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
   const [delayedClick, setDelayedClick] = useState(null);
   const [countdown, setCountdown] = useState(0);
+  const [idleCount, setIdleCountdown] = useState(10);
+
+  // Define the handleClick function
+  const handleClick = (category) => {
+    window.location.href = "events";
+    data.setCategory(category);
+    console.log("Clicked category:", category);
+  };
 
   useEffect(() => {
     fetchCategories();
@@ -18,16 +26,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
 
   const fetchCategories = async () => {
     const eventData = await fetchEventData();
-    console.log(eventData);
     const uniqueCategories = [...new Set(eventData.map((row) => row.Category))];
-    console.log(uniqueCategories);
     setCategories(uniqueCategories);
-  };
-
-  const handleClick = (category) => {
-    window.location.href = "events";
-    data.setCategory(category);
-    console.log("Clicked category:", category);
   };
 
   useEffect(() => {
@@ -54,15 +54,38 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       // Start the countdown
       setCountdown(3);
 
-      // Update the countdown every second
+      // Start countdown timer
       const intervalId = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
+        setCountdown((prevCountdown) => {
+          if (prevCountdown <= 0) {
+            clearInterval(intervalId);
+            return 0;
+          }
+          return prevCountdown - 1;
+        });
       }, 1000);
 
-      // Clear the interval when the component unmounts or when the selected option changes
+      // Clear the interval when the component unmounts or when selectedOption changes
       return () => clearInterval(intervalId);
     }
   }, [selectedOption, categories, setCurrentCategory, delayedClick]);
+
+  useEffect(() => {
+    if (selectedOption === null) {
+      const intervalId = setInterval(() => {
+        setIdleCountdown((prevCountdown) => {
+          if (prevCountdown <= 0) {
+            clearInterval(intervalId);
+            return 0;
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+
+      // Clear the interval when the component unmounts or when selectedOption changes
+      return () => clearInterval(intervalId);
+    }
+  }, [selectedOption]);
 
   return (
     <>
@@ -98,6 +121,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         </div>
       </div>
       <Footer pageNumber={1} />
+      {/* Render countdown timer */}
+      <div>{countdown}</div>
     </>
   );
 }
