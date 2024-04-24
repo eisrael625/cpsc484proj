@@ -12,7 +12,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [countdown, setCountdown] = useState(3);
 
   const handleClick = (category) => {
-    window.location.href = "events";
+    window.location.href = `events/${category}`;
     data.setCategory(category);
     console.log("Clicked category:", category);
   };
@@ -36,7 +36,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
-            handleClick(selectedOption);
+            handleClick(categories[selectedOption - 1]);
             return 0;
           }
           return prevCountdown - 1;
@@ -58,23 +58,12 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         <div className="EventCat">
           <div className="topics">
             {categories.map((category, index) => {
-              const isHovered = selectedOption === index;
+              const isHovered = selectedOption === index + 1; // Adjust index to match selectedOption
               return (
                 <div className="row" key={index}>
-                  <div
-                    className="column"
-                    data-hover={isHovered}
-                  >
+                  <div className="column" data-hover={isHovered}>
                     <h1>{category}</h1>
                   </div>
-                  {categories[index + 1] && (
-                    <div
-                      className="column"
-                      data-hover={selectedOption === index + 1}
-                    >
-                      <h1>{categories[index + 1]}</h1>
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -89,4 +78,4 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <Footer pageNumber={3} />
     </>
   );
-}
+  
