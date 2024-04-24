@@ -37,26 +37,26 @@ class HandPositionTracker extends Component {
     const { joints } = person;
     const neck = joints[3];
     const spine_chest = joints[2];
-    const spine_navel = joints[1];
+    const pelvis = joints[0];
     const shoulderRight = joints[12];
     const shoulderLeft = joints[5];
     const handRight = joints[15];
 
     // Calculate cursor position based on hand position and navel joint position
-    const cursorX =
-      ((handRight.position.x - spine_navel.position.x + 1) *
-        window.innerWidth) /
-      2;
-    const cursorY =
-      ((handRight.position.y - spine_navel.position.y + 1) *
-        window.innerHeight) /
-      2;
+    // const cursorX =
+    //   ((handRight.position.x - spine_navel.position.x + 1) *
+    //     window.innerWidth) /
+    //   2;
+    // const cursorY =
+    //   ((handRight.position.y - spine_navel.position.y + 1) *
+    //     window.innerHeight) /
+    //   2;
 
     // Update selected option based on hand position
     const selectedOption = this.checkPosition(
       neck,
       spine_chest,
-      spine_navel,
+      pelvis,
       shoulderRight,
       shoulderLeft,
       handRight,
@@ -75,28 +75,28 @@ class HandPositionTracker extends Component {
   checkPosition = (
     neck,
     spine_chest,
-    spine_navel,
+    pelvis,
     shoulderRight,
     shoulderLeft,
     handRight,
   ) => {
     const threshold = 0; // The minimum distance the hand needs to be above the navel
     if (
-      handRight.position.y <= spine_navel.position.y - threshold &&
+      handRight.position.y <= pelvis.position.y - threshold &&
       handRight.position.x <= shoulderRight.position.x - threshold &&
       handRight.confidence >= 2
     ) {
       data.setHandLocation(1);
       return 1;
     } else if (
-      handRight.position.y <= spine_navel.position.y - threshold &&
+      handRight.position.y <= pelvis.position.y - threshold &&
       handRight.position.x > shoulderRight.position.x + threshold &&
       handRight.confidence >= 2
     ) {
       data.setHandLocation(2);
       return 2;
     } else if (
-      handRight.position.y >= spine_navel.position.y + threshold &&
+      handRight.position.y >= pelvis.position.y + threshold &&
       handRight.position.y <= spine_chest.position.y - threshold &&
       handRight.position.x <= shoulderRight.position.x - threshold &&
       handRight.confidence >= 2
@@ -104,7 +104,7 @@ class HandPositionTracker extends Component {
       data.setHandLocation(3);
       return 3;
     } else if (
-      handRight.position.y >= spine_navel.position.y + threshold &&
+      handRight.position.y >= pelvis.position.y + threshold &&
       handRight.position.y <= spine_chest.position.y - threshold &&
       handRight.position.x >= shoulderRight.position.x + threshold &&
       handRight.confidence >= 2
