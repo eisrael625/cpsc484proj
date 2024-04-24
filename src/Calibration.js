@@ -20,7 +20,7 @@ export default function Calibration() {
     setCountdown(3); // Reset countdown to 3
   }, [selectedOption]);
 
-  // Start the countdown when selectedOption changes and it's 7
+  // Start the countdown when selectedOption changes and it's 75
   useEffect(() => {
     if (selectedOption === 5) {
       const intervalId = setInterval(() => {

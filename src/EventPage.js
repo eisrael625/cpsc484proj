@@ -87,20 +87,21 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <div className="scrollable">
         <div className="EventDetails">
           <div className="topics">
-            {filteredEventData.map((event, index) => (
-              <div className="row" key={index}>
-                <div
-                  className="column"
-                  data-hover={selectedOption === (index + 1)}
-                  onClick={() => handleClick(event)}
-                >
-                  <h1 className="catHeader">{event?.Category}</h1>
-                  <h1>{event?.EventName}</h1>
-                  <p>{event?.Description}</p>
-                  <p>{event?.Date} at {event?.Time} in {event?.Location}</p>
+            <div className="row">
+              {filteredEventData.map((event, index) => (
+                <div className="column" key={index}>
+                  <div
+                    data-hover={selectedOption === (index + 1)}
+                    onClick={() => handleClick(event)}
+                  >
+                    <h1 className="catHeader">{event?.Category}</h1>
+                    <h1>{event?.EventName}</h1>
+                    <p>{event?.Description}</p>
+                    <p>{event?.Date} at {event?.Time} in {event?.Location}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -111,5 +112,6 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       </div>
       <Footer pageNumber={2} />
     </>
-  );  
+  );
+  
 }

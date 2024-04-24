@@ -34,7 +34,7 @@ export default function Footer({ pageNumber, cal }) {
     
       // Redirect to the new page if countdown reaches zero
   useEffect(() => {
-    if (countdown === 0 && cal && selectedOption === 7) {
+    if (countdown === 0 && cal && selectedOption === 5) {
       handleClick("/eventCat");
     }
   }, [countdown]);
@@ -45,7 +45,7 @@ export default function Footer({ pageNumber, cal }) {
             {cal ? (
               <>
                   <div className="button" data-hover={selectedOption === 7}>
-                      <p>   5   </p>
+                      <p>   7   </p>
                   </div>
                     <div className="button" data-hover={selectedOption === 6}>
                       <p>   6   </p>
