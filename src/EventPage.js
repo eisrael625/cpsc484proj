@@ -116,7 +116,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           <p className="timer">{countdown}</p>
         </div>
       </div>
-      <Footer pageNumber={4} />
+      <Footer pageNumber={2} />
     </>
   );
 }

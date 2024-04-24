@@ -10,45 +10,46 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [countdown, setCountdown] = useState(3);
+  let intervalId;
 
   const handleClick = (category) => {
-    window.location.href = `events/${category}`;
+    window.location.href = "events";
     data.setCategory(category);
     console.log("Clicked category:", category);
   };
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    const eventData = await fetchEventData();
-    const uniqueCategories = [...new Set(eventData.map((row) => row.Category))];
-    setCategories(uniqueCategories);
-  };
+    setCountdown(3); // Reset countdown to 3
+  }, [selectedOption]);
 
   useEffect(() => {
-    let intervalId;
-  
-    if (selectedOption !== null) {
+    fetchCategories();
+    return () => clearInterval(intervalId); // Cleanup function to clear interval
+  }, []);
+
+  useEffect(() => {
+   if (selectedOption !== null) {
       setCountdown(3);
       intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
-            handleClick(categories[selectedOption - 1]);
+            handleClick(categories[selectedOption - 1]); // Pass the category corresponding to the selected option
             return 0;
           }
           return prevCountdown - 1;
         });
       }, 1000);
     }
-  
-    return () => {
-      clearInterval(intervalId); // Clear interval in cleanup
-    };
-  }, [selectedOption]);
-  
+
+    return () => clearInterval(intervalId); // Clear interval when selectedOption changes
+  }, [selectedOption, categories]);
+
+  const fetchCategories = async () => {
+    const eventData = await fetchEventData();
+    const uniqueCategories = [...new Set(eventData.map((row) => row.Category))];
+    setCategories(uniqueCategories);
+  };
 
   return (
     <>
@@ -57,16 +58,22 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <div className="scrollable">
         <div className="EventCat">
           <div className="topics">
-            {categories.map((category, index) => {
-              const isHovered = selectedOption === index + 1; // Adjust index to match selectedOption
-              return (
-                <div className="row" key={index}>
-                  <div className="column" data-hover={isHovered}>
-                    <h1>{category}</h1>
-                  </div>
-                </div>
-              );
-            })}
+            <div className="row">
+              <div className="column" data-hover={selectedOption === 1}>
+                <h1>{categories[0]}</h1>
+              </div>
+              <div className="column" data-hover={selectedOption === 2}>
+                <h1>{categories[1]}</h1>
+              </div>
+            </div>
+            <div className="row">
+              <div className="column" data-hover={selectedOption === 3}>
+                <h1>{categories[2]}</h1>
+              </div>
+              <div className="column" data-hover={selectedOption === 4}>
+                <h1>{categories[3]}</h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +82,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           <p className="timer">{countdown}</p>
         </div>
       </div>
-      <Footer pageNumber={3} />
+      <Footer pageNumber={1}/>
     </>
   );
-  
+}
