@@ -87,62 +87,20 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <div className="scrollable">
         <div className="EventDetails">
           <div className="topics">
-            <div className="row">
-              <div
-                className="column"
-                data-hover={selectedOption === 2}
-                onClick={() => handleClick(filteredEventData[0])}
-              >
-                <h1 className="catHeader">{filteredEventData[0].Category}</h1>
-                <h1>{filteredEventData[0].EventName}</h1>
-                <p>{filteredEventData[0].Description}</p>
-                <p>
-                  {filteredEventData[0].Date} at {filteredEventData[0].Time} in{" "}
-                  {filteredEventData[0].Location}{" "}
-                </p>
+            {filteredEventData.map((event, index) => (
+              <div className="row" key={index}>
+                <div
+                  className="column"
+                  data-hover={selectedOption === (index + 1)}
+                  onClick={() => handleClick(event)}
+                >
+                  <h1 className="catHeader">{event?.Category}</h1>
+                  <h1>{event?.EventName}</h1>
+                  <p>{event?.Description}</p>
+                  <p>{event?.Date} at {event?.Time} in {event?.Location}</p>
+                </div>
               </div>
-              <div
-                className="column"
-                data-hover={selectedOption === 1}
-                onClick={() => handleClick(filteredEventData[1])}
-              >
-                <h1 className="catHeader">{filteredEventData[1].Category}</h1>
-                <h1>{filteredEventData[1].EventName}</h1>
-                <p>{filteredEventData[1].Description}</p>
-                <p>
-                  {filteredEventData[1].Date} at {filteredEventData[1].Time} in{" "}
-                  {filteredEventData[1].Location}{" "}
-                </p>
-              </div>
-            </div>
-            <div className="row">
-              <div
-                className="column"
-                data-hover={selectedOption === 4}
-                onClick={() => handleClick(filteredEventData[2])}
-              >
-                <h1 className="catHeader">{filteredEventData[2].Category}</h1>
-                <h1>{filteredEventData[2].EventName}</h1>
-                <p>{filteredEventData[2].Description}</p>
-                <p>
-                  {filteredEventData[2].Date} at {filteredEventData[2].Time} in{" "}
-                  {filteredEventData[2].Location}{" "}
-                </p>
-              </div>
-              <div
-                className="column"
-                data-hover={selectedOption === 3}
-                onClick={() => handleClick(filteredEventData[3])}
-              >
-                <h1 className="catHeader">{filteredEventData[3].Category}</h1>
-                <h1>{filteredEventData[3].EventName}</h1>
-                <p>{filteredEventData[3].Description}</p>
-                <p>
-                  {filteredEventData[3].Date} at {filteredEventData[3].Time} in{" "}
-                  {filteredEventData[3].Location}{" "}
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -153,5 +111,5 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       </div>
       <Footer pageNumber={2} />
     </>
-  );
+  );  
 }

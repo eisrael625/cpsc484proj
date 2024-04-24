@@ -44,13 +44,13 @@ export default function Footer({ pageNumber, cal }) {
 
             {cal ? (
               <>
-                  <div className="button" data-hover={selectedOption === 5}>
+                  <div className="button" data-hover={selectedOption === 7}>
                       <p>   5   </p>
                   </div>
                     <div className="button" data-hover={selectedOption === 6}>
                       <p>   6   </p>
                   </div>
-                  <div className="button" data-hover={selectedOption === 7}>
+                  <div className="button" data-hover={selectedOption === 5}>
                       <p>   Go here to continue to next page   </p>
                   </div>
               </>
