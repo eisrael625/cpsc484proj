@@ -11,7 +11,6 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [filteredEventData, setFilteredEventData] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [countdown, setCountdown] = useState(3); // Countdown state
-  const [idleCount, setIdleCountdown] = useState(10);
 
   useEffect(() => {
     fetchEventDataAndUpdateState();
@@ -23,66 +22,21 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
 
   useEffect(() => {
     if (selectedOption !== null) {
-      // Logic to determine which buttons to click based on selectedOption
-      const indexToClick = selectedOption - 1;
-      if (filteredEventData[indexToClick]) {
-        handleClick(filteredEventData[indexToClick]);
-      } else if (selectedOption == 5) {
-        window.location.href = "/";
-      } else if (selectedOption == 7) {
-        window.location.href = "eventCat";
-      }
-    }
-  }, [selectedOption, filteredEventData]);
-  
-
-  useEffect(() => {
-    if (selectedOption === 7) {
+      // Clear previous intervals (if any)
       const intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
+            handleClick(filteredEventData[selectedOption - 1] || {});
             return 0;
           }
           return prevCountdown - 1;
         });
       }, 1000);
 
-      // useEffect(() => {
-      //   if (countdown === 0) {
-      //     handleClick("/");
-      //   }
-      // }, [countdown]);
-
-      // Clear the interval when the component unmounts or when selectedOption changes
       return () => clearInterval(intervalId);
     }
-  }, [selectedOption]);
-
-  useEffect(() => {
-    if (selectedOption === null) {
-      const intervalId = setInterval(() => {
-        setIdleCountdown((prevCountdown) => {
-          if (prevCountdown <= 0) {
-            clearInterval(intervalId);
-            return 0;
-          }
-          return prevCountdown - 1;
-        });
-      }, 1000);
-            // Clear the interval when the component unmounts or when selectedOption changes
-            return () => clearInterval(intervalId);
-          }
-        }, [selectedOption]);
-
-      useEffect(() => {
-        if (idleCount === 0) {
-          handleClick("/");
-        }
-      }, [idleCount]);
-
-
-  
+  }, [selectedOption, filteredEventData]);
 
   const fetchEventDataAndUpdateState = async () => {
     const eventData = await fetchEventData();
@@ -106,7 +60,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
     data.setEventDescription(event.Description);
     data.setEventCalURL(event.CalLink);
     data.setListServeURL(event.ListServeLink);
-    console.log("Clicked category:", event.EventName);
+    console.log("Clicked event:", event.EventName);
   };
 
   return (
@@ -157,3 +111,4 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
     </>
   );
 }
+ᐧ;
