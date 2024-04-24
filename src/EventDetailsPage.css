@@ -65,3 +65,23 @@ padding: 0 2vh;
 .qr {
     margin-top: auto;
     margin-bottom: 15vh;}
+
+.countdown-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+      }
+      
+.countdown {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        padding: 10px 20px;
+      }
+      
+.timer {
+        color: white;
+        font-size: 18px;
+        margin: 0;
+      }
+      
