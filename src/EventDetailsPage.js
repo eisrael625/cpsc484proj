@@ -34,11 +34,11 @@ export default function EventDetailsPage({ currentCategory, setCurrentCategory }
       intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
-            if (selectedOption == 5) {
+            if (selectedOption == 7) {
               window.location.href = "/";
             } else if (selectedOption == 6) {
               window.location.href = "eventCat";
-            } else if (selectedOption == 7) {
+            } else if (selectedOption == 5) {
               window.location.href = "events";
             }
             return 0;

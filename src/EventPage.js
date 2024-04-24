@@ -41,8 +41,14 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
             else if (selectedOption == 5) {
               window.location.href = "eventCat";
             }
-            else {
-              handleClick(filteredEventData[selectedOption - 1] || {});
+            else if (selectedOption == 1) {
+              handleClick(filteredEventData[1] || {});
+            } else if (selectedOption == 2) {
+              handleClick(filteredEventData[0] || {});
+            } else if (selectedOption == 3) {
+              handleClick(filteredEventData[3] || {});
+            } else if (selectedOption == 4) {
+              handleClick(filteredEventData[2] || {});
             }
             return 0;
           }
@@ -90,15 +96,15 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
             {filteredEventData.length > 0 && (
               <>
                 <div className="row">
-                  <div className="column" data-hover={selectedOption === 1} onClick={() => handleClick(filteredEventData[0])}>
+                  <div className="column" data-hover={selectedOption === 2} onClick={() => handleClick(filteredEventData[0])}>
                     <h1 className="catHeader">{filteredEventData[0]?.Category}</h1>
                     <h1>{filteredEventData[0]?.EventName}</h1>
                     <p>{filteredEventData[0]?.Description}</p>
                     <p>{filteredEventData[0]?.Date} at {filteredEventData[0]?.Time} in {filteredEventData[0]?.Location}</p>
                   </div>
                   {filteredEventData.length > 1 && (
-                    <div className="column" data-hover={selectedOption === 2} onClick={() => handleClick(filteredEventData[1])}>
-                      <h1 className="catHeader">{filteredEventData[1]?.Category}</h1>
+                    <div className="column" data-hover={selectedOption === 1} onClick={() => handleClick(filteredEventData[1])}>
+                      <h1 className="catHeader">{filteredEventData[0]?.Category}</h1>
                       <h1>{filteredEventData[1]?.EventName}</h1>
                       <p>{filteredEventData[1]?.Description}</p>
                       <p>{filteredEventData[1]?.Date} at {filteredEventData[1]?.Time} in {filteredEventData[1]?.Location}</p>
@@ -107,14 +113,14 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                 </div>
                 {filteredEventData.length > 2 && (
                   <div className="row">
-                    <div className="column" data-hover={selectedOption === 3} onClick={() => handleClick(filteredEventData[2])}>
+                    <div className="column" data-hover={selectedOption === 4} onClick={() => handleClick(filteredEventData[2])}>
                       <h1 className="catHeader">{filteredEventData[2]?.Category}</h1>
                       <h1>{filteredEventData[2]?.EventName}</h1>
                       <p>{filteredEventData[2]?.Description}</p>
                       <p>{filteredEventData[2]?.Date} at {filteredEventData[2]?.Time} in {filteredEventData[2]?.Location}</p>
                     </div>
                     {filteredEventData.length > 3 && (
-                      <div className="column" data-hover={selectedOption === 4} onClick={() => handleClick(filteredEventData[3])}>
+                      <div className="column" data-hover={selectedOption === 3} onClick={() => handleClick(filteredEventData[3])}>
                         <h1 className="catHeader">{filteredEventData[3]?.Category}</h1>
                         <h1>{filteredEventData[3]?.EventName}</h1>
                         <p>{filteredEventData[3]?.Description}</p>
