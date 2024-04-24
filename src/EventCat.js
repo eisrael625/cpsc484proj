@@ -61,18 +61,18 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           <div className="topics">
             <div className="row">
               <div className="column" data-hover={selectedOption === 2}>
-                <h1>{categories[0]}</h1>
+                <h1>{categories[1]}</h1>
               </div>
               <div className="column" data-hover={selectedOption === 1}>
-                <h1>{categories[1]}</h1>
+                <h1>{categories[0]}</h1>
               </div>
             </div>
             <div className="row">
               <div className="column" data-hover={selectedOption === 4}>
-                <h1>{categories[2]}</h1>
+                <h1>{categories[3]}</h1>
               </div>
               <div className="column" data-hover={selectedOption === 3}>
-                <h1>{categories[3]}</h1>
+                <h1>{categories[2]}</h1>
               </div>
             </div>
           </div>
