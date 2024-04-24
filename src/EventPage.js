@@ -25,6 +25,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
     if (selectedOption !== null) {
       setCountdown(3);
       // Clear previous intervals (if any)
+      clearInterval(intervalId);
+      // Set up a new interval
       intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
@@ -35,9 +37,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           return prevCountdown - 1;
         });
       }, 1000);
-
-      return () => clearInterval(intervalId);
     }
+    return () => clearInterval(intervalId);
   }, [selectedOption, filteredEventData]);
 
   const fetchEventDataAndUpdateState = async () => {
