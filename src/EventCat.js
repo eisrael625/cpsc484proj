@@ -13,10 +13,15 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   let intervalId;
 
   const handleClick = (category) => {
-    window.location.href = "events";
-    data.setCategory(category);
-    console.log("Clicked category:", category);
+    if (category) {
+      window.location.href = "events";
+      data.setCategory(category);
+      console.log("Clicked category:", category);
+    } else {
+      console.error("Invalid category selected");
+    }
   };
+  
 
   useEffect(() => {
     setCountdown(3); // Reset countdown to 3
@@ -61,18 +66,18 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           <div className="topics">
             <div className="row">
               <div className="column" data-hover={selectedOption === 2}>
-                <h1>{categories[1]}</h1>
+                <h1>{categories[0]}</h1>
               </div>
               <div className="column" data-hover={selectedOption === 1}>
-                <h1>{categories[0]}</h1>
+                <h1>{categories[1]}</h1>
               </div>
             </div>
             <div className="row">
               <div className="column" data-hover={selectedOption === 4}>
-                <h1>{categories[3]}</h1>
+                <h1>{categories[2]}</h1>
               </div>
               <div className="column" data-hover={selectedOption === 3}>
-                <h1>{categories[2]}</h1>
+                <h1>{categories[3]}</h1>
               </div>
             </div>
           </div>
