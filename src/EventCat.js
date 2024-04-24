@@ -29,6 +29,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
 
   useEffect(() => {
    if (selectedOption !== null) {
+      console.log("Quadrant:", selectedOption);
       setCountdown(3);
       intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
@@ -59,18 +60,18 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         <div className="EventCat">
           <div className="topics">
             <div className="row">
-              <div className="column" data-hover={selectedOption === 1}>
+              <div className="column" data-hover={selectedOption === 2}>
                 <h1>{categories[0]}</h1>
               </div>
-              <div className="column" data-hover={selectedOption === 2}>
+              <div className="column" data-hover={selectedOption === 1}>
                 <h1>{categories[1]}</h1>
               </div>
             </div>
             <div className="row">
-              <div className="column" data-hover={selectedOption === 3}>
+              <div className="column" data-hover={selectedOption === 4}>
                 <h1>{categories[2]}</h1>
               </div>
-              <div className="column" data-hover={selectedOption === 4}>
+              <div className="column" data-hover={selectedOption === 3}>
                 <h1>{categories[3]}</h1>
               </div>
             </div>
