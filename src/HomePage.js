@@ -47,9 +47,9 @@ const HomePage = () => {
           <h2 className="text">
             Raise your right hand (Click anywhere) to start
           </h2>
-          <h2 className="text">
+          {/* <h2 className="text">
             {selectedOption}
-          </h2>
+          </h2> */}
           {/* Display the countdown */}
           <p className="timer">{countdown}</p>
         </div>
