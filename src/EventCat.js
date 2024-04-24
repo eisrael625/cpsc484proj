@@ -62,16 +62,14 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
               return (
                 <div className="row" key={index}>
                   <div
-                    className={`column ${isHovered ? "selected" : ""}`}
+                    className="column"
                     data-hover={isHovered}
                   >
                     <h1>{category}</h1>
                   </div>
                   {categories[index + 1] && (
                     <div
-                      className={`column ${
-                        selectedOption === index + 1 ? "selected" : ""
-                      }`}
+                      className="column"
                       data-hover={selectedOption === index + 1}
                     >
                       <h1>{categories[index + 1]}</h1>

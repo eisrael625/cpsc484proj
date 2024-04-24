@@ -34,7 +34,7 @@ export default function Footer({ pageNumber, cal }) {
     
       // Redirect to the new page if countdown reaches zero
   useEffect(() => {
-    if (countdown === 0 && cal && selectedOption == 7) {
+    if (countdown === 0 && cal && selectedOption === 7) {
       handleClick("/eventCat");
     }
   }, [countdown]);

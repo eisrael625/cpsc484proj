@@ -80,7 +80,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                 index % 2 === 0 && ( // Render a new row for every two events
                   <div className="row" key={index}>
                     <div
-                      className={`column ${selectedOption === index ? "selected" : ""}`}
+                      className="column"
                       data-hover={selectedOption === index}
                     >
                       <h1 className="catHeader">{event.Category}</h1>
@@ -92,7 +92,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                     </div>
                     {filteredEventData[index + 1] && (
                       <div
-                        className={`column ${selectedOption === index + 1 ? "selected" : ""}`}
+                        className="column"
                         data-hover={selectedOption === index + 1}
                       >
                         <h1>{filteredEventData[index + 1].Category}</h1>
