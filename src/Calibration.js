@@ -9,10 +9,10 @@ export default function Calibration() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [countdown, setCountdown] = useState(3);
   const calibrationOptions = [
-    { EventName: "TOP RIGHT" },
     { EventName: "TOP LEFT" },
+    { EventName: "TOP RIGHT" },
+    { EventName: "MID LEFT" },
     { EventName: "MID RIGHT" },
-    { EventName: "MIDLEFT" },
   ];
 
   // Reset countdown whenever selectedOption changes

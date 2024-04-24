@@ -43,14 +43,14 @@ class HandPositionTracker extends Component {
     const handRight = joints[15];
 
     // Calculate cursor position based on hand position and navel joint position
-    // const cursorX =
-    //   ((handRight.position.x - spine_navel.position.x + 1) *
-    //     window.innerWidth) /
-    //   2;
-    // const cursorY =
-    //   ((handRight.position.y - spine_navel.position.y + 1) *
-    //     window.innerHeight) /
-    //   2;
+    const cursorX =
+      ((handRight.position.x - pelvis.position.x + 1) *
+        window.innerWidth) /
+      2;
+    const cursorY =
+      ((handRight.position.y - pelvis.position.y + 1) *
+        window.innerHeight) /
+      2;
 
     // Update selected option based on hand position
     const selectedOption = this.checkPosition(
