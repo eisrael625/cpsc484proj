@@ -114,7 +114,7 @@ class HandPositionTracker extends Component {
       handRight.confidence >= 2
     ) {
       data.setHandLocation(7);
-      return 7;
+      return 5;
     } else if (
       handRight.position.y >= pelvis.position.y + threshold &&
       // handRight.position.y <= spine_navel.position.y - threshold &&
@@ -131,7 +131,7 @@ class HandPositionTracker extends Component {
       handRight.confidence >= 2
     ) {
       data.setHandLocation(5);
-      return 5;
+      return 7;
     }
     return null; // Return null if no option is selected
   };

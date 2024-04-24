@@ -21,7 +21,6 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       console.error("Invalid category selected");
     }
   };
-  
 
   useEffect(() => {
     setCountdown(3); // Reset countdown to 3
@@ -33,14 +32,18 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   }, []);
 
   useEffect(() => {
-   if (selectedOption !== null) {
+    if (selectedOption !== null) {
       console.log("Quadrant:", selectedOption);
       setCountdown(3);
       intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
-            handleClick(categories[selectedOption - 1]); // Pass the category corresponding to the selected option
+            if (selectedOption == 6) {
+              window.location.href = "/";
+            } else {
+              handleClick(categories[selectedOption - 1]);
+            } // Pass the category corresponding to the selected option
             return 0;
           }
           return prevCountdown - 1;
@@ -88,7 +91,7 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           <p className="timer">{countdown}</p>
         </div>
       </div>
-      <Footer pageNumber={1}/>
+      <Footer pageNumber={1} />
     </>
   );
 }
