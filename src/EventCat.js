@@ -2,23 +2,19 @@ import { useEffect, useState } from "react";
 import { fetchEventData } from "./GoogleSheets";
 import Header from "./Header";
 import Footer from "./Footer";
-import HandPositionTracker from "./interface"; // Import HandPositionTracker component
+import HandPositionTracker from "./interface";
 import "./EventCat.css";
 import data from "./data.store";
 
 export default function EventCat({ currentCategory, setCurrentCategory }) {
   const [categories, setCategories] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null); // State to store selected option from HandPositionTracker
-  // const [delayedClick, setDelayedClick] = useState(null);
-  const [countdown, setCountdown] = useState(3); // Initialize countdown at 3 for consistency
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [countdown, setCountdown] = useState(3);
 
-  // Define the handleClick function
   const handleClick = (category) => {
-    // if (countdown === 0) {
     window.location.href = "events";
     data.setCategory(category);
     console.log("Clicked category:", category);
-    // }
   };
 
   useEffect(() => {
@@ -32,10 +28,10 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
   };
 
   useEffect(() => {
+    let intervalId; // Initialize intervalId
     if (selectedOption !== null) {
-      // Clear the previous timeout if it exists
       setCountdown(3);
-      const intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
@@ -45,12 +41,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
           return prevCountdown - 1;
         });
       }, 1000);
-    } else {
-      clearInterval(intervalId);
     }
-
-      return () => clearInterval(intervalId);
-    }
+    return () => clearInterval(intervalId); // Clear interval in cleanup
   }, [selectedOption]);
 
   return (
@@ -66,7 +58,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                 <div className="row" key={index}>
                   <div
                     className={`column ${isHovered ? "selected" : ""}`}
-                    data-hover={isHovered}>
+                    data-hover={isHovered}
+                  >
                     <h1>{category}</h1>
                   </div>
                   {categories[index + 1] && (
@@ -74,7 +67,8 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
                       className={`column ${
                         selectedOption === index + 1 ? "selected" : ""
                       }`}
-                      data-hover={selectedOption === index + 1}>
+                      data-hover={selectedOption === index + 1}
+                    >
                       <h1>{categories[index + 1]}</h1>
                     </div>
                   )}
@@ -92,4 +86,4 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
       <Footer pageNumber={3} />
     </>
   );
-  
+}
