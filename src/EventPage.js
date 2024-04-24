@@ -35,7 +35,15 @@ export default function EventCat({ currentCategory, setCurrentCategory }) {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 0) {
             clearInterval(intervalId);
-            handleClick(filteredEventData[selectedOption - 1] || {});
+            if (selectedOption == 5){
+              window.location.href = "/";
+            }
+            else if (selectedOption == 7) {
+              window.location.href = "eventCat";
+            }
+            else {
+              handleClick(filteredEventData[selectedOption - 1] || {});
+            }
             return 0;
           }
           return prevCountdown - 1;
